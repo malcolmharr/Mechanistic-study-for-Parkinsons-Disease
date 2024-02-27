@@ -1,0 +1,22 @@
+Created my Malcolm Harrison on 02/18/24
+
+#First, install mdtraj with anaconda in an environment w/ Python 3.4+
+
+conda install -c conda-forge mdtraj
+
+#To test the installation, use the following commands:
+
+pip install pytest
+pytest mdtraj -v
+
+#Now, you are ready to convert your trajectory files. Activate the conda environment containing mdtraj and run the following command:
+
+python mdconvert.py
+
+#To convert your NAMD psf file to GROMACS topology, switch your environment back to gmx_MMPBSA first
+
+conda actiavte gmx_MMPBSA
+
+#Then, use ParmEd to convert your psf file to gromacs topology. Ensure that all of your parameters are defined in the psf2top.py file
+
+python activate psf2top.py
