@@ -1,4 +1,4 @@
-Created my Malcolm Harrison on 02/18/24
+Created by Malcolm Harrison on 02/18/24
 
 #First, install mdtraj with anaconda in an environment w/ Python 3.4+
 
@@ -15,7 +15,7 @@ python mdconvert.py
 
 #To convert your NAMD psf file to GROMACS topology, switch your environment back to gmx_MMPBSA first
 
-conda actiavte gmx_MMPBSA
+conda activate gmx_MMPBSA
 
 #Then, use ParmEd to convert your psf file to gromacs topology. Ensure that all of your parameters are defined in the psf2top.py file
 
