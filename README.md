@@ -15,10 +15,8 @@ This repository includes references and files necessary to perform protein-prote
 
 ### 1.	Create and set up a conda environment with the packages indicated in requirements.txt. If you do not have conda, download Miniconda from the following link: https://docs.conda.io/en/latest/miniconda.html
 
-	'''sh
 	conda create -n <name-of-env> python=3.8
 	pip install -r requirements.txt
-	'''
 
 ### 2.	Download and install [VMD](https://www.ks.uiuc.edu/Development/Download/download.cgi?PackageName=VMD) and [NAMD](https://www.ks.uiuc.edu/Development/Download/download.cgi?PackageName=NAMD). NAMD versions 2.14 and 3.0b should be installed, as the former will run on CPU for minimization and heating, while the latter will run on GPU for equilibration and production. Once you have installed these, export the paths to your .bashrc for ease of use
 
