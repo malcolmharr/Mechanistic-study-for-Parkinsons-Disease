@@ -20,12 +20,10 @@ This repository includes references and files necessary to perform protein-prote
 
 ### 2.	Download and install [VMD](https://www.ks.uiuc.edu/Development/Download/download.cgi?PackageName=VMD) and [NAMD](https://www.ks.uiuc.edu/Development/Download/download.cgi?PackageName=NAMD). NAMD versions 2.14 and 3.0b should be installed, as the former will run on CPU for minimization and heating, while the latter will run on GPU for equilibration and production. Once you have installed these, export the paths to your .bashrc for ease of use
 
-	'''sh
 	vim ~/.bashrc
 	export PATH=$PATH:/your/install/directory/vmd-1.9.3/build/bin
 	export PATH=$PATH:/your/install/directory/NAMD_2.14_Linux-x86_64-multicore-CUDA
 	export PATH=$PATH:/your/install/directory/NAMD_3.0alpha9_Linux-x86_64-multicore-CUDA
-	'''
 
 ### 3.	Download the [CHARMM 36m forcefield](http://mackerell.umaryland.edu/charmm_ff.shtml). This will be used for topology and parameter files for all MD simulations
 
@@ -43,9 +41,7 @@ You can use [ABodyBuilder2](https://opig.stats.ox.ac.uk/webapps/sabdab-sabpred/s
 
 Use the add_h.tcl script to add hydrogens to your protein. Execute the following command to do so.
 
-	'''sh
  	vmd -dispdev text -e add_h.tcl
- 	'''
 
 ### 3. Protein Docking
 
@@ -59,18 +55,14 @@ The rest of this repository contains all of the files necessary to perform molec
 
 Edit prot_mod.tcl to change the $protein variable to the path to your pdb file. Change the topology section to reference your topology files. Make sure you have identified all disulfide bonds present in your protein in the patch DISU area. Run this command using:
 
-	'''sh
 	vmd -dispdev text -e prot_mod.tcl
-  	'''
 
 ### 2. Minimization
 
 Use the following commands to run the minimization of your protein
 
-	'''sh
 	cd min
  	namd2 +p10 +setcpuaffinity +devices 0 prot_min.conf > prot_min.out &
- 	'''
 
 ### 3. Solvation
 
@@ -85,7 +77,6 @@ Use the following command to run solvation and ionization. Edit prot_solv.tcl to
 
 Use the following commands to set up and run production MD simulations of your antibody-antigen complex. Edit each configuration file to make sure your topology and parameter directory is correctly identified, and edit any parameters of the MD simulation run as needed. 
 
-	'''sh
  	cd ../namd
   	namd2 +p10 +setcpuaffinity +devices 0 prot_ion_min.conf > prot_ion_min.out
 
@@ -96,14 +87,11 @@ Use the following commands to set up and run production MD simulations of your a
      	srun --smpi=pmi2 -n 1 namd3 +p1 +setcpuaffinity +devices 0 prot_ion_eq.conf > prot_ion_eq.out
 
 	srun --smpi=pmi2 -n 1 namd3 +p1 +setcpuaffinity +devices 0 prot_ion_prod.conf > prot_ion_prod.out
-  	'''
 
 The prot_ion_prod.conf file is set to run a 100ns simulation. If you want to run longer simulations, feel free to either edit the "run 50000000" line at the end of the file, or create a new configuration file with the following lines:
 
-	'''sh
 	set inputname prot_ion_prod
  	set outputname prot_ion_prod2
- 	'''
 
 This is a convenient way to run longer simulations if you are on a HPC that has maximum run time hours set.
 
@@ -113,41 +101,31 @@ This is a convenient way to run longer simulations if you are on a HPC that has 
 
 Removing waters from trajectories allows the rest of the analysis to be performed much faster. 
 
-	'''sh
 	cd dehydrate
  	vmd -dispdev text -e nw.tcl
- 	'''
 ### 2. Hydrogen bonding analysis
 
 This method uses MDAnalysis to obtain hydrogen bond information from the MD trajectories, and creates a CSV file with all hydrogen bond information, as well as a text file with all hydrogen bonds sorted by prevalency. 
 
-	'''sh
 	cd ../hbond
  	./run-hbond.sh &
- 	'''
 ### 3. RMSD
 
 Inside the rmsd folder, there are Tcl scripts for each CDR region of the antibody. Edit these files for whichever regions of the Fab/Fv region you wish to study. Edit plot-rmsd.py to change the name of your figure and to edit any subplots created. 
 
-	'''sh
 	cd ../rmsd
  	./run-rmsd.sh
   	python plot-rmsd.py
- 	'''
 ### 4. Binding affinity calculation with gmx_MMPBSA
 
 First, visit the [gmx_MMPBSA documentation](https://valdes-tresanco-ms.github.io/gmx_MMPBSA/dev/) to install all required packages for this analysis.
 
 If you're using MPI, run the following command:
 	
- 	'''sh
 	mpirun -np [num_processors] gmx_MMPBSA -O -i mmpbsa.in -cs ../../prot_mod.pdb -ct ../convert/gmx_MMPBSA_input.xtc -ci index.ndx -cg 10 11 -cp ../convert/gromacs.top -o FINAL_RESULTS_MMPBSA.dat -eo FINAL_RESULTS_MMPBSA.csv -nogui
- 	'''
 To run the analysis in serial instead, run this following command:
 
-	'''sh
 	gmx_MMPBSA -O -i mmpbsa.in -cs ../../prot_mod.pdb -ct ../convert/gmx_MMPBSA_input.xtc -ci index.ndx -cg 10 11 -cp ../convert/gromacs.top -o FINAL_RESULTS_MMPBSA.dat -eo FINAL_RESULTS_MMPBSA.csv -nogui
-	'''
 
 ## Contact
 
