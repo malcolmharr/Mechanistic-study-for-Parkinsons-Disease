@@ -1,6 +1,6 @@
-#topology = '/path/to/pdb'
-
-nw_dcd='../dehydrate/nw_prasinezumab_2KKW_ion_prod.dcd'
-topology='../../prasinezumab_2KKW_mod.pdb'
+nw_dcd='../dehydrate/nw_prot_ion_prod.dcd'
+topology='../../prot_mod.pdb'
 
 mdconvert $nw_dcd -o gmx_MMPBSA_input.xtc -t $topology
+
+python psf2top.py
