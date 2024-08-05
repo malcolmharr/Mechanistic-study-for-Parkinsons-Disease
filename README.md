@@ -28,15 +28,41 @@ This repository includes references and files necessary to perform protein-prote
 	export PATH=$PATH:/your/install/directory/NAMD_3.0alpha9_Linux-x86_64-multicore-CUDA
 	'''
 
-### 3. Download your protein of interest from the Protein Data Bank. (https://rcsb.org) and obtain the sequence for the antibody you wish to model. In this study, Prasinezumab's sequence was obtained from the Kyoto Encyclopedia of Genes and Genomes (https://www.kegg.jp/)
+### 3. Download your protein of interest from the [Protein Data Bank](https://www.kegg.jp/), and obtain the sequence for the antibody you wish to model. In this study, Prasinezumab's sequence was obtained from the [Kyoto Encyclopedia of Genes and Genomes](https://www.kegg.jp/).
 
 ## Docking
 
-Before running MD simulations, you must first use a protein-protein docking tool to obtain the structure of the complex. If you are using BioLuminate for antibody homology modeling, protein preparation, and docking, please see the documentation from Schrödinger for detailed instructions. To allow and encourage reproducibility for those without licenses to Schrödinger software, you can use the following tools to obtain the same effect. 
+Before running MD simulations, you must first use a protein-protein docking tool to obtain the structure of the complex. If you are using BioLuminate for antibody homology modeling, protein preparation, and docking, please see the [documentation from Schrödinger](https://learn.schrodinger.com/private/edu/release/current/Documentation/html/bioluminate/maestro-bioluminate-homepage.htm?tocpath=Biologics%20Drug%20Discovery%7CMaestro%20BioLuminate%7C_____0) for detailed instructions. To allow and encourage reproducibility for those without licenses to Schrödinger software, you can use the following tools to obtain the same effect. 
 
 ### 1. Antibody Homology modeling.
 
+Visit 
 
+### 2. Adding hydrogens
+
+vmd script
+
+### 3. Protein Docking
+
+Hdock/Zdock
+
+## MD Simulation
+
+Link Dr. Lai paper
+
+### 1. Protein modification
+
+### 2. Minimization
+
+### 3. Solvation
+
+### 4. Production
+
+## Analysis
+
+### 1. Hydrogen Bonding
+
+### 2. 
 
 ## Contact
 
