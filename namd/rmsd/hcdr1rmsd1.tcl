@@ -1,7 +1,7 @@
 package require pbctools
 
-mol load psf ../../solvation/prasinezumab_2KKW_ion.psf
-set structName "prasinezumab_2KKW_ion_prod"
+mol load psf ../../solvation/prot_ion.psf
+set structName "prot_ion_prod"
 for {set i 1} {$i <= 10} {incr i} {
         set dcdName "../${structName}${i}.dcd"
         mol addfile $dcdName waitfor all
