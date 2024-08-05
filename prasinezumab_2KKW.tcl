@@ -13,7 +13,7 @@ $A set chain A
 $A writepdb A.pdb
 
 package require psfgen
-topology /anvil/projects/x-chm210013/mharrison/toppar_c36_jul22/top_all36_prot.rtf
+topology /your/topology/files/toppar_c36_jul22/top_all36_prot.rtf
 
 pdbalias residue HIS HSD
 pdbalias atom ILE CD1 CD
