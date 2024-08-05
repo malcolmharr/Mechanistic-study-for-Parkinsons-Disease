@@ -1,10 +1,9 @@
 set selText "(not water and not ion)"
 set outPrefix "nw_";
+set structName "prot_ion_prod"
 
-mol load psf ../../solvation/prasinezumab_2KKW_ion.psf pdb ../../solvation/prasinezumab_2KKW_ion.pdb
+mol load psf ../../solvation/prot_ion.psf pdb ../../solvation/prot_ion.pdb
 set sel [atomselect top $selText]
-#set dcdName [trimPath $dcd]
-set structName "prasinezumab_2KKW_prod"
 
 $sel writepsf nw_${structName}.psf
 $sel writepdb nw_${structName}.pdb
