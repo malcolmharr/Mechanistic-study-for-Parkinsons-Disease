@@ -9,6 +9,7 @@ This repository includes references and files necessary to perform protein-prote
 - [Docking](#docking)
 - [MD Simulation](#md-simulation)
 - [Analysis](#analysis)
+- [Contact](#contact)
 
 ## Setup
 
