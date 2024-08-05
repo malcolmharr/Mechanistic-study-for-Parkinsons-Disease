@@ -12,14 +12,14 @@ This repository includes references and files necessary to perform protein-prote
 
 ## Setup
 
-1. Create and setup a conda environment with the packages indicated in requirements.txt. If you do not have conda, donwload Miniconda from the following link: https://docs.conda.io/en/latest/miniconda.html
+# 1. Create and set up a conda environment with the packages indicated in requirements.txt. If you do not have conda, download Miniconda from the following link: https://docs.conda.io/en/latest/miniconda.html
 
 	'''sh
 	conda create -n <name-of-env> python=3.8
 	pip install -r requirements.txt
 	'''
 
-2. Download and install VMD 1.9.3, NAMD 2.14, and NAMD 3.0b. Instructions to download them can be found at https://www.ks.uiuc.edu/Development/Download/download.cgi?PackageName=VMD and https://www.ks.uiuc.edu/Development/Download/download.cgi?PackageName=NAMD. Once you have installed these, export the paths to your .bashrc for ease of use
+# 2. Download and install VMD 1.9.3, NAMD 2.14, and NAMD 3.0b. Instructions to download them can be found at https://www.ks.uiuc.edu/Development/Download/download.cgi?PackageName=VMD and https://www.ks.uiuc.edu/Development/Download/download.cgi?PackageName=NAMD. Once you have installed these, export the paths to your .bashrc for ease of use
 
 	'''sh
 	vim ~/.bashrc
@@ -28,41 +28,15 @@ This repository includes references and files necessary to perform protein-prote
 	export PATH=$PATH:/your/install/directory/NAMD_3.0alpha9_Linux-x86_64-multicore-CUDA
 	'''
 
-3. Download youe protein of interest from rcsb.org. 
+# 3. Download your protein of interest from the Protein Data Bank. (https://rcsb.org) and obtain the sequence for the antibody you wish to model. In this study, Prasinezumab's sequence was obtained from the Kyoto Encyclopedia of Genes and Genomes (https://www.kegg.jp/)
 
-	'''sh	
-	vim ~/.basrhc
-	export SILCSBIODIR=/anvil/projects/x-bio220114/username/directory/silcsbio.2024.1
-	export GMXDIR=/anvil/projects/x-bio220114/username/directory/gromacs/bin
-	source ~/.bashrc
-	'''
-	
-4. Set up a conda environment for silcsbio. This allows you to make sure that all of the packages work correctly and do not conflict with any other programs you use. If you do not have conda, donwload Miniconda from the following link: https://docs.conda.io/en/latest/miniconda.html
+## Docking
 
-	'''sh
-	conda create -n silcs python=3
-	conda activate silcs
-	pip install -r $SILCSBIODIR/utils/python/requirements.txt
-	'''
+Before running MD simulations, you must first use a protein-protein docking tool to obtain the structure of the complex. If you are using BioLuminate for antibody homology modeling, protein preparation, and docking, please see the documentation from Schrödinger for detailed instructions. To allow and encourage reproducibility for those without licenses to Schrödinger software, you can use the following tools to obtain the same effect. 
 
-## Usage
-
-Using SilcsBio to study antibody excipient interactions is very useful, however a lot of the scripts that they use create SLURM jobs that do not work properly with Anvil's system. To circumnavigate these issues, the following bash files can be used to run SilcsBio jobs autonomously. Please reference /anvil/projects/x-bio220114/mharrison/nist-fab to see all of the specific files. 
-
-1. Run SILCS and generate FragMaps
-
-	
+# 1. Antibody Homology modeling.
 
 
-
-Run the script using:
-    ```sh
-    python script.py
-    ```
-Example:
-    ```sh
-    python script.py --arg1 value1 --arg2 value2
-    ```
 
 ## Contact
 
