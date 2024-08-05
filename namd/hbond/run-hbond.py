@@ -67,19 +67,11 @@ def get_donor_acceptor_info(row):
 # Add donor and acceptor columns to the DataFrame
 hbond_df['Donor_Info'], hbond_df['Acceptor_Info'] = zip(*hbond_df.apply(get_donor_acceptor_info, axis=1))
 
-# Function to list the most common entries
-def list_most_common_entries(dataframe, n=5):
-    # Combine donor and acceptor information into a single string
-    dataframe['Donor_Acceptor'] = dataframe['Donor_Info'] + ' - ' + dataframe['Acceptor_Info']
+hbond_df['Donor_Acceptor'] = dataframe['Donor_Info'] + ' - ' + dataframe['Acceptor_Info']
     
-    # Find the top n most common donor-acceptor pairs
-    most_common_entries = dataframe['Donor_Acceptor'].value_counts().head(n)
-    
-    return most_common_entries
+# Find the most common donor-acceptor pairs
+most_common_entries = hbond_df['Donor_Acceptor'].value_counts()
 
-# Call the function to get the 5 most common entries
-most_common_entries = list_most_common_entries(hbond_df, n=5)
-print(most_common_entries)
 output_file = "hbonds.txt"
 with open(output_file, 'w') as f:
 	f.write("Most Common Hydrogen Bonds:\n")
