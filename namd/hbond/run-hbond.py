@@ -9,10 +9,8 @@ import os
 import glob
 
 # Set variables for psf and dcd files
-psf_path = '../../prasinezumab_2KKW_mod.psf'
-dcd_path = '../dehydrate/nw_prasinezumab_2KKW_ion_prod.dcd'
-#dcd_files = glob.glob(os.path.join(dcd_path, '*.dcd'))
-#dcd_files.sort()
+psf_path = '../../prot_2KKW_mod.psf'
+dcd_path = '../dehydrate/nw_prot_ion_prod.dcd'
 
 # Load your universe (example file path, replace with your actual file)
 u = mda.Universe(psf_path, dcd_path)
@@ -49,21 +47,21 @@ num_entries = len(dataframes_list)
 print("Number of entries in list: ",num_entries)
 
 hbond_df = pd.concat(dataframes_list, ignore_index=True)
-hbond_df.to_csv("hbond_df3.csv", index=False)
-print("All dataframes have been saved to hbond_df3.csv")
+hbond_df.to_csv("hbonds.csv", index=False)
+print("All dataframes have been saved to hbonds.csv")
 
 # Function to reverse lookup residue, chain, residue number, and atom name information for a given atom index
 def get_atom_info(atom_index):
     atom = u.atoms[atom_index]
     residue = atom.residue
-    return residue.resname, residue.segid, residue.resnum, atom.name
+    return residue.resname, residue.segid, residue.resnum
 
 # Function to get donor and acceptor information for each row in the DataFrame
 def get_donor_acceptor_info(row):
-    donor_residue, donor_chain, donor_residue_number, donor_atom = get_atom_info(int(row['Donor']))
-    acceptor_residue, acceptor_chain, acceptor_residue_number, acceptor_atom = get_atom_info(int(row['Acceptor']))
-    donor_info = f"{donor_residue}:{donor_chain}:{donor_residue_number}:{donor_atom}"
-    acceptor_info = f"{acceptor_residue}:{acceptor_chain}:{acceptor_residue_number}:{acceptor_atom}"
+    donor_residue, donor_chain, donor_residue_number = get_atom_info(int(row['Donor']))
+    acceptor_residue, acceptor_chain, acceptor_residue_number = get_atom_info(int(row['Acceptor']))
+    donor_info = f"{donor_residue}:{donor_chain}:{donor_residue_number}"
+    acceptor_info = f"{acceptor_residue}:{acceptor_chain}:{acceptor_residue_number}"
     return donor_info, acceptor_info
 
 # Add donor and acceptor columns to the DataFrame
