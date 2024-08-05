@@ -6,9 +6,9 @@ This repository includes references and files necessary to perform protein-prote
 
 ## Table of Contents
 - [Setup](#setup)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
+- [Docking](#docking)
+- [MD Simulation](#mdsimulation)
+- [Analysis](#analysis)
 
 ## Setup
 
@@ -81,14 +81,74 @@ Use the following command to run solvation and ionization. Edit prot_solv.tcl to
  	cd ../solvation
 	vmd -dispdev text -e prot_solv.tcl
  	'''
-  
+
 ### 4. Production
+
+Use the following commands to set up and run production MD simulations of your antibody-antigen complex. Edit each configuration file to make sure your topology and parameter directory is correctly identified, and edit any parameters of the MD simulation run as needed. 
+
+	'''sh
+ 	cd ../namd
+  	namd2 +p10 +setcpuaffinity +devices 0 prot_ion_min.conf > prot_ion_min.out
+
+   	vmd -dispdev text -e gen_restraints_heat.tcl
+
+    	namd2 +p10 +setcpuaffinity +devices 0 prot_ion_heat.conf > prot_ion_min.out
+
+     	srun --smpi=pmi2 -n 1 namd3 +p1 +setcpuaffinity +devices 0 prot_ion_eq.conf > prot_ion_eq.out
+
+	srun --smpi=pmi2 -n 1 namd3 +p1 +setcpuaffinity +devices 0 prot_ion_prod.conf > prot_ion_prod.out
+  	'''
+
+The prot_ion_prod.conf file is set to run a 100ns simulation. If you want to run longer simulations, feel free to either edit the "run 50000000" line at the end of the file, or create a new configuration file with the following lines:
+
+	'''sh
+	set inputname prot_ion_prod
+ 	set outputname prot_ion_prod2
+ 	'''
+
+This is a convenient way to run longer simulations if you are on a HPC that has maximum run time hours set.
 
 ## Analysis
 
-### 1. Hydrogen Bonding
+### 1. Remove water from trajectories
 
-### 2. 
+Removing waters from trajectories allows the rest of the analysis to be performed much faster. 
+
+	'''sh
+	cd dehydrate
+ 	vmd -dispdev text -e nw.tcl
+ 	'''
+### 2. Hydrogen bonding analysis
+
+This method uses MDAnalysis to obtain hydrogen bond information from the MD trajectories, and creates a CSV file with all hydrogen bond information, as well as a text file with all hydrogen bonds sorted by prevalency. 
+
+	'''sh
+	cd ../hbond
+ 	./run-hbond.sh &
+ 	'''
+### 3. RMSD
+
+Inside the rmsd folder, there are Tcl scripts for each CDR region of the antibody. Edit these files for whichever regions of the Fab/Fv region you wish to study. Edit plot-rmsd.py to change the name of your figure and to edit any subplots created. 
+
+	'''sh
+	cd ../rmsd
+ 	./run-rmsd.sh
+  	python plot-rmsd.py
+ 	'''
+### 4. Binding affinity calculation with gmx_MMPBSA
+
+First, visit the [gmx_MMPBSA documentation](https://valdes-tresanco-ms.github.io/gmx_MMPBSA/dev/) to install all required packages for this analysis.
+
+If you're using MPI, run the following command:
+	
+ 	'''sh
+	mpirun -np [num_processors] gmx_MMPBSA -O -i mmpbsa.in -cs ../../prot_mod.pdb -ct ../convert/gmx_MMPBSA_input.xtc -ci index.ndx -cg 10 11 -cp ../convert/gromacs.top -o FINAL_RESULTS_MMPBSA.dat -eo FINAL_RESULTS_MMPBSA.csv -nogui
+ 	'''
+To run the analysis in serial instead, run this following command:
+
+	'''sh
+	gmx_MMPBSA -O -i mmpbsa.in -cs ../../prot_mod.pdb -ct ../convert/gmx_MMPBSA_input.xtc -ci index.ndx -cg 10 11 -cp ../convert/gromacs.top -o FINAL_RESULTS_MMPBSA.dat -eo FINAL_RESULTS_MMPBSA.csv -nogui
+	'''
 
 ## Contact
 
