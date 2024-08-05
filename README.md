@@ -77,15 +77,15 @@ Use the following command to run solvation and ionization. Edit prot_solv.tcl to
 
 Use the following commands to set up and run production MD simulations of your antibody-antigen complex. Edit each configuration file to make sure your topology and parameter directory is correctly identified, and edit any parameters of the MD simulation run as needed. 
 
- 	cd ../namd
+	cd ../namd
   
-  	namd2 +p10 +setcpuaffinity +devices 0 prot_ion_min.conf > prot_ion_min.out
+	namd2 +p10 +setcpuaffinity +devices 0 prot_ion_min.conf > prot_ion_min.out
 
-   	vmd -dispdev text -e gen_restraints_heat.tcl
+	vmd -dispdev text -e gen_restraints_heat.tcl
 
-    	namd2 +p10 +setcpuaffinity +devices 0 prot_ion_heat.conf > prot_ion_min.out
+	namd2 +p10 +setcpuaffinity +devices 0 prot_ion_heat.conf > prot_ion_min.out
 
-     	srun --smpi=pmi2 -n 1 namd3 +p1 +setcpuaffinity +devices 0 prot_ion_eq.conf > prot_ion_eq.out
+	srun --smpi=pmi2 -n 1 namd3 +p1 +setcpuaffinity +devices 0 prot_ion_eq.conf > prot_ion_eq.out
 
 	srun --smpi=pmi2 -n 1 namd3 +p1 +setcpuaffinity +devices 0 prot_ion_prod.conf > prot_ion_prod.out
 
