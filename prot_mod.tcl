@@ -1,4 +1,5 @@
-mol load pdb prasinezumab_2KKW.pdb 
+set protein /path/to/pdb_file
+mol load pdb $protein
 
 set H [atomselect top "chain H"]
 $H set chain H
@@ -65,7 +66,7 @@ guesscoord
 
 regenerate angles dihedrals
 
-writepsf -cmap prasinezumab_2KKW_mod.psf
-writepdb prasinezumab_2KKW_mod.pdb
+writepsf -cmap prot_mod.psf
+writepdb prot_mod.pdb
 
 exit
