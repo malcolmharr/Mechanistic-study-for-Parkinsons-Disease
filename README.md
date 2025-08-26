@@ -68,10 +68,8 @@ Use the following commands to run the minimization of your protein
 
 Use the following command to run solvation and ionization. Edit prot_solv.tcl to change the thickness of the water box and change the concentration of your ionized system. This script will only neutralize the system, so add the flag -sc <salt concentration> in units of mol/L. For more information on how to use the autoionize package, see the [documentation on VMD](https://www.ks.uiuc.edu/Research/vmd/plugins/autoionize/).
 
-	'''sh
  	cd ../solvation
 	vmd -dispdev text -e prot_solv.tcl
- 	'''
 
 ### 4. Production
 
@@ -130,4 +128,4 @@ To run the analysis in serial instead, run this following command:
 
 ## Contact
 
-Reach out to Malcolm Harrison at mharriso1@stevens.edu with any questions about the setup and execution
+Reach out to Malcolm Harrison at malcolmharrison865@gmail.com with any questions about the setup and execution
